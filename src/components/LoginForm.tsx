@@ -96,12 +96,12 @@ const LoginForm = ({
           </form>
 
           <div className="text-center space-y-3">
-            <button type="button" className="text-sm text-yellow-500 hover:text-yellow-400 font-medium transition-colors" onClick={() => {
+            <button type="button" onClick={() => {
             toast({
               title: "Funcionalidade em desenvolvimento",
               description: "A recuperação de senha estará disponível em breve"
             });
-          }}>
+          }} className="font-medium transition-colors text-slate-50 text-base">
               Esqueceu sua senha?
             </button>
 
