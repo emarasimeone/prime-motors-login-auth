@@ -1,11 +1,10 @@
 
 import { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Eye, EyeOff, Lock, Mail, Car, Loader2 } from 'lucide-react';
+import { Eye, EyeOff, Lock, User, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 interface LoginFormProps {
@@ -30,7 +29,6 @@ const LoginForm = ({ onSwitchToRegister }: LoginFormProps) => {
     setError('');
     setLoading(true);
 
-    // Validações básicas
     if (!email || !password) {
       setError('Por favor, preencha todos os campos');
       setLoading(false);
@@ -50,17 +48,13 @@ const LoginForm = ({ onSwitchToRegister }: LoginFormProps) => {
     }
 
     try {
-      // Simular chamada para API
       await new Promise(resolve => setTimeout(resolve, 2000));
 
-      // Simular sucesso para demonstração
       if (email === 'admin@primemotors.com' && password === '123456') {
         toast({
           title: "Login realizado com sucesso!",
           description: "Bem-vindo ao sistema Prime Motors"
         });
-
-        // Aqui você redirecionaria para o dashboard
         console.log('Login bem-sucedido - redirecionando para dashboard...');
       } else {
         setError('Email ou senha incorretos');
@@ -74,123 +68,109 @@ const LoginForm = ({ onSwitchToRegister }: LoginFormProps) => {
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto backdrop-blur-sm bg-white/95 shadow-2xl border-0 animate-fade-in">
-      <CardHeader className="space-y-4 text-center pb-6">
-        <div className="flex justify-center mb-4">
-          <div className="bg-blue-600 p-3 rounded-full">
-            <Car className="h-8 w-8 text-white" />
-          </div>
-        </div>
-        <CardTitle className="text-2xl font-bold text-gray-900">FACE-PRIME</CardTitle>
-        <CardDescription className="text-gray-600">
-          Faça login para acessar o sistema
-        </CardDescription>
-      </CardHeader>
+    <div className="w-full max-w-sm mx-auto">
+      <div className="text-center mb-8">
+        <img 
+          src="https://plataformaweb-sites.s3.amazonaws.com/prime-motors-mt/img/logo-PRIME-MOTORS-MT-1030x113.png" 
+          alt="Prime Motors"
+          className="h-16 mx-auto mb-6 object-contain"
+        />
+      </div>
 
-      <CardContent className="space-y-6">
-        {error && (
-          <Alert className="border-red-200 bg-red-50">
-            <AlertDescription className="text-red-700">
-              {error}
-            </AlertDescription>
-          </Alert>
-        )}
+      <Card className="bg-transparent border-0 shadow-none">
+        <CardContent className="p-0 space-y-4">
+          {error && (
+            <Alert className="border-red-500/20 bg-red-500/10">
+              <AlertDescription className="text-red-400">
+                {error}
+              </AlertDescription>
+            </Alert>
+          )}
 
-        <form onSubmit={handleLogin} className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="email" className="text-sm font-medium text-gray-700">
-              Email
-            </Label>
+          <form onSubmit={handleLogin} className="space-y-4">
             <div className="relative">
-              <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+              <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
               <Input
-                id="email"
                 type="email"
-                placeholder="seu@email.com"
+                placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="pl-10 h-12 border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                className="pl-10 h-12 bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-yellow-500 focus:ring-yellow-500/20"
                 disabled={loading}
               />
             </div>
-          </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="password" className="text-sm font-medium text-gray-700">
-              Senha
-            </Label>
             <div className="relative">
-              <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+              <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
               <Input
-                id="password"
                 type={showPassword ? "text" : "password"}
-                placeholder="••••••••"
+                placeholder="Senha"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="pl-10 pr-10 h-12 border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                className="pl-10 pr-10 h-12 bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-yellow-500 focus:ring-yellow-500/20"
                 disabled={loading}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-3 text-gray-400 hover:text-gray-600 transition-colors"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300 transition-colors"
                 disabled={loading}
               >
                 {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
               </button>
             </div>
-          </div>
 
-          <Button
-            type="submit"
-            className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white font-medium transition-all duration-200 disabled:opacity-50"
-            disabled={loading}
-          >
-            {loading ? (
-              <div className="flex items-center space-x-2">
-                <Loader2 className="h-4 w-4 animate-spin" />
-                <span>Entrando...</span>
-              </div>
-            ) : (
-              'Entrar'
-            )}
-          </Button>
-        </form>
+            <Button
+              type="submit"
+              className="w-full h-12 bg-yellow-500 hover:bg-yellow-600 text-black font-medium transition-all duration-200 disabled:opacity-50"
+              disabled={loading}
+            >
+              {loading ? (
+                <div className="flex items-center space-x-2">
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <span>Entrando...</span>
+                </div>
+              ) : (
+                'Entrar'
+              )}
+            </Button>
+          </form>
 
-        <div className="text-center space-y-3">
-          <button
-            type="button"
-            className="text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors"
-            onClick={() => {
-              toast({
-                title: "Funcionalidade em desenvolvimento",
-                description: "A recuperação de senha estará disponível em breve"
-              });
-            }}
-          >
-            Esqueceu sua senha?
-          </button>
-
-          <p className="text-sm text-gray-600">
-            Não tem uma conta?{' '}
+          <div className="text-center space-y-3">
             <button
               type="button"
-              onClick={onSwitchToRegister}
-              className="text-blue-600 hover:text-blue-700 font-medium transition-colors"
+              className="text-sm text-yellow-500 hover:text-yellow-400 font-medium transition-colors"
+              onClick={() => {
+                toast({
+                  title: "Funcionalidade em desenvolvimento",
+                  description: "A recuperação de senha estará disponível em breve"
+                });
+              }}
             >
-              Criar conta
+              Esqueceu sua senha?
             </button>
-          </p>
-        </div>
 
-        <div className="pt-4 border-t border-gray-200">
-          <div className="text-xs text-gray-400 text-center space-y-1">
-            <p>© 2024 Prime Motors. Todos os direitos reservados.</p>
-            <p>Suporte: Bruno Bocardi (66) 99255-7948</p>
+            <p className="text-sm text-gray-400">
+              Não tem uma conta?{' '}
+              <button
+                type="button"
+                onClick={onSwitchToRegister}
+                className="text-yellow-500 hover:text-yellow-400 font-medium transition-colors"
+              >
+                Criar conta
+              </button>
+            </p>
           </div>
-        </div>
-      </CardContent>
-    </Card>
+
+          <div className="pt-6 text-center">
+            <div className="text-xs text-gray-500 space-y-1">
+              <p>© 2024 Prime Motors. Todos os direitos reservados.</p>
+              <p>Suporte: Bruno Bocardi (66) 99255-7948</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 
