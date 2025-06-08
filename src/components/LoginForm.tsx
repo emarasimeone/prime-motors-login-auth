@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -175,14 +174,6 @@ const LoginForm = () => {
         </div>
 
         <div className="pt-4 border-t border-gray-200">
-          <div className="text-xs text-gray-500 text-center space-y-1">
-            <p>Para testar, use:</p>
-            <p className="font-mono bg-gray-100 p-2 rounded">
-              Email: admin@primemotors.com<br />
-              Senha: 123456
-            </p>
-          </div>
-          
           <div className="mt-4 pt-4 border-t border-gray-200">
             <div className="text-xs text-gray-400 text-center space-y-1">
               <p>© 2024 Prime Motors. Todos os direitos reservados.</p>
