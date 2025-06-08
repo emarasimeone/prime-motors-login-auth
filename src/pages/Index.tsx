@@ -1,7 +1,11 @@
 
+import { useState } from 'react';
 import LoginForm from '@/components/LoginForm';
+import RegisterForm from '@/components/RegisterForm';
 
 const Index = () => {
+  const [isLoginMode, setIsLoginMode] = useState(true);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
       <div className="absolute inset-0 opacity-20">
@@ -9,7 +13,11 @@ const Index = () => {
       </div>
       
       <div className="relative flex items-center justify-center min-h-screen p-4">
-        <LoginForm />
+        {isLoginMode ? (
+          <LoginForm onSwitchToRegister={() => setIsLoginMode(false)} />
+        ) : (
+          <RegisterForm onSwitchToLogin={() => setIsLoginMode(true)} />
+        )}
       </div>
     </div>
   );
