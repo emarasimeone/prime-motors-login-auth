@@ -182,6 +182,13 @@ const LoginForm = () => {
               Senha: 123456
             </p>
           </div>
+          
+          <div className="mt-4 pt-4 border-t border-gray-200">
+            <div className="text-xs text-gray-400 text-center space-y-1">
+              <p>© 2024 Prime Motors. Todos os direitos reservados.</p>
+              <p>Suporte: Bruno Bocardi (66) 99255-7948</p>
+            </div>
+          </div>
         </div>
       </CardContent>
     </Card>
